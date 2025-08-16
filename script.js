@@ -1,3 +1,16 @@
+// Banner slider
+const slides = document.querySelectorAll(".banner-slide");
+let currentSlide = 0;
+
+function nextSlide() {
+  slides[currentSlide].classList.remove("active");
+  currentSlide = (currentSlide + 1) % slides.length;
+  slides[currentSlide].classList.add("active");
+}
+
+setInterval(nextSlide, 3000);
+
+// Server status
 const serverIP = "AzureSMPz.aternos.me";
 const serverPort = 21847;
 
@@ -8,13 +21,13 @@ async function updateServerStatus() {
 
     const playersEl = document.getElementById("players");
     const ipEl = document.getElementById("server-ip");
+    const headerIpEl = document.getElementById("header-ip");
 
-    // Update server IP
-    ipEl.innerText = `${serverIP}:${serverPort}`;
+    ipEl.innerText = `Server IP: ${serverIP}:${serverPort}`;
+    headerIpEl.innerText = `Server IP: ${serverIP}:${serverPort}`;
 
-    // Update players online
     if (data && data.players && typeof data.players.online !== "undefined") {
-      playersEl.innerText = `${data.players.online} players online`;
+      playersEl.innerText = `Players online: ${data.players.online}`;
     } else {
       playersEl.innerText = "Players online: Unavailable";
     }
@@ -24,8 +37,5 @@ async function updateServerStatus() {
   }
 }
 
-// Run once immediately
 updateServerStatus();
-
-// Update every 30 seconds
 setInterval(updateServerStatus, 30000);

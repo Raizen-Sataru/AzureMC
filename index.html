@@ -5,22 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AzureMC - Minecraft Server</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
     <h1>Welcome to our AzureMC site!</h1>
-    <p id="header-ip">Server IP: AzureSMPz.aternos.me:21847</p>
   </header>
 
-  <section class="server-info">
-    <div class="banner-slider">
-      <img src="banner1.png" alt="Banner 1" class="banner-slide active">
-      <img src="banner2.png" alt="Banner 2" class="banner-slide">
-      <img src="banner3.png" alt="Banner 3" class="banner-slide">
+  <!-- Banner Section -->
+  <div class="banner-container">
+    <div class="banner-slide active">
+      <h2>Banner 1</h2>
+      <p>Join our Minecraft server!</p>
     </div>
-    <p id="server-ip">Server IP: AzureSMPz.aternos.me:21847</p>
-    <p id="players">Players online: Loading...</p>
-    <a href="https://discord.gg/cVYyvkDRPt" target="_blank" class="discord-button">Join our Discord</a>
+    <div class="banner-slide">
+      <h2>Banner 2</h2>
+      <p>Server IP: AzureSMPz.aternos.me | Port: 21847</p>
+    </div>
+    <div class="banner-nav">
+      <span class="prev">&#10094;</span>
+      <span class="next">&#10095;</span>
+    </div>
+  </div>
+
+  <!-- Server Info -->
+  <section class="server-info">
+    <h2>Server Status</h2>
+    <p>IP: <strong>AzureSMPz.aternos.me</strong></p>
+    <p>Port: <strong>21847</strong></p>
+    <p>Players Online: <strong id="players-online">Loading...</strong></p>
+  </section>
+
+  <!-- Discord Link -->
+  <section class="discord">
+    <h2>Join our Discord</h2>
+    <a href="https://discord.gg/cVYyvkDRPt" target="_blank">Click here to join!</a>
   </section>
 
   <script src="script.js"></script>

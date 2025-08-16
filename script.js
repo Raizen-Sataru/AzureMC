@@ -1,28 +1,31 @@
-const mcStatusEl = document.getElementById('mc-status');
-const mcPlayersEl = document.getElementById('mc-players');
-
 const serverIP = "AzureSMPz.aternos.me";
 const serverPort = 21847;
 
-async function fetchServerStatus() {
+async function updateServerStatus() {
   try {
-    const response = await fetch(`https://api.mcsrvstat.us/2/${serverIP}:${serverPort}`);
+    const response = await fetch(`https://api.mcsrvstat.us/2/${serverIP}`);
     const data = await response.json();
 
-    if(data.online) {
-      mcStatusEl.textContent = "Server is Online ✅";
-      mcPlayersEl.textContent = `Players Online: ${data.players.online} / ${data.players.max}`;
+    const playersEl = document.getElementById("players");
+    const ipEl = document.getElementById("server-ip");
+
+    // Update server IP
+    ipEl.innerText = `${serverIP}:${serverPort}`;
+
+    // Update players online
+    if (data && data.players && typeof data.players.online !== "undefined") {
+      playersEl.innerText = `${data.players.online} players online`;
     } else {
-      mcStatusEl.textContent = "Server is Offline ❌";
-      mcPlayersEl.textContent = "Players Online: 0";
+      playersEl.innerText = "Players online: Unavailable";
     }
   } catch (error) {
-    mcStatusEl.textContent = "Server Status Unknown ⚠️";
-    mcPlayersEl.textContent = "Players Online: --";
-    console.error("Error fetching server status:", error);
+    console.error("Error fetching server data:", error);
+    document.getElementById("players").innerText = "Players online: Unavailable";
   }
 }
 
-// Update every 10 seconds
-fetchServerStatus();
-setInterval(fetchServerStatus, 10000);
+// Run once immediately
+updateServerStatus();
+
+// Update every 30 seconds
+setInterval(updateServerStatus, 30000);

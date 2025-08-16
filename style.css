@@ -1,49 +1,52 @@
 body {
-  font-family: 'Arial', sans-serif;
-  background: #1e1e2f;
-  color: #ffffff;
+  font-family: 'Nunito', sans-serif;
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  color: white;
+  text-align: center;
   margin: 0;
   padding: 0;
-  text-align: center;
 }
 
 header {
-  background-color: #2e2e50;
-  padding: 20px;
+  margin-top: 50px;
 }
 
-header h1 {
-  margin: 0;
-  color: #00bfff;
+.animated-title {
+  font-size: 2.5em;
+  animation: fadeIn 2s ease-in-out;
 }
 
-header nav a {
-  color: #00ffbf;
-  text-decoration: none;
-  margin-left: 20px;
-  font-weight: bold;
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(-20px);}
+  100% { opacity: 1; transform: translateY(0);}
 }
 
-main {
-  padding: 50px 20px;
+.server-info {
+  margin-top: 30px;
 }
 
-.server-status {
-  background-color: #2e2e50;
-  padding: 30px;
+.banner img {
+  width: 300px;
+  margin: 10px;
   border-radius: 10px;
+  transition: transform 0.3s;
+}
+
+.banner img:hover {
+  transform: scale(1.05);
+}
+
+.discord-button {
   display: inline-block;
+  margin-top: 20px;
+  padding: 10px 25px;
+  background-color: #7289da;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.3s;
 }
 
-.server-status h2 {
-  color: #00bfff;
-  margin-top: 0;
-}
-
-footer {
-  background-color: #2e2e50;
-  padding: 20px;
-  position: fixed;
-  width: 100%;
-  bottom: 0;
+.discord-button:hover {
+  background-color: #5b6eae;
 }

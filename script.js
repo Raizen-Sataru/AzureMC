@@ -1,28 +1,45 @@
 // Banner Slider
-let slides = document.querySelectorAll(".banner-slide");
 let currentSlide = 0;
+const slides = document.querySelectorAll(".banner-slide");
 
-const showSlide = (index) => {
-  slides.forEach(slide => slide.classList.remove("active"));
-  slides[index].classList.add("active");
+function showSlide(index) {
+  slides.forEach((slide, i) => {
+    slide.classList.remove("active");
+    if (i === index) slide.classList.add("active");
+  });
 }
 
-// Auto slide every 5 seconds
-setInterval(() => {
+function nextSlide() {
   currentSlide = (currentSlide + 1) % slides.length;
   showSlide(currentSlide);
-}, 5000);
+}
 
-// Next/Prev buttons
-document.querySelector(".next").addEventListener("click", () => {
-  currentSlide = (currentSlide + 1) % slides.length;
+// Auto-slide every 5 seconds
+if (slides.length > 0) {
   showSlide(currentSlide);
-});
+  setInterval(nextSlide, 5000);
+}
 
-document.querySelector(".prev").addEventListener("click", () => {
-  currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-  showSlide(currentSlide);
-});
+// Server Status Fetch
+async function fetchServerStatus() {
+  const ip = "AzureSMPz.aternos.me";
+  const port = "21847";
 
-// Placeholder for players online
-document.getElementById("players-online").innerText = "3 players online";
+  try {
+    const response = await fetch(`https://api.mcsrvstat.us/2/${ip}:${port}`);
+    const data = await response.json();
+
+    if (data && data.online) {
+      document.getElementById("server-status").innerText =
+        `Players Online: ${data.players.online} / ${data.players.max}`;
+    } else {
+      document.getElementById("server-status").innerText = "Server Offline";
+    }
+  } catch (err) {
+    document.getElementById("server-status").innerText = "Error fetching status";
+    console.error(err);
+  }
+}
+
+// Fetch server status on load
+fetchServerStatus();

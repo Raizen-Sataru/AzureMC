@@ -1,73 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bloxd Chat</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AzureMC — Chat</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <!-- Header -->
-  <header>
-    <h1 class="logo">BLOXD CHAT</h1>
-    <nav>
-      <ul>
-        <li><a href="#" onclick="showPage('chat')">Chat</a></li>
-        <li><a href="#" onclick="showPage('settings')">Settings</a></li>
-        <li><a href="#" onclick="showPage('info')">Information</a></li>
-        <li><a href="https://discord.gg/5fn3b2UZ6A" target="_blank">Discord</a></li>
-        <li><a href="#" onclick="showPage('hosting')">Hosting</a></li>
-      </ul>
+  <!-- Top Bar -->
+  <header class="topbar">
+    <div class="brand">AzureMC</div>
+    <nav class="menu">
+      <button class="menu-link" data-open="chat">Chat</button>
+      <button class="menu-link" data-open="infoModal">Information</button>
+      <button class="menu-link" data-open="settingsModal">Settings</button>
+      <button class="menu-link" data-open="hostingModal">Hosting</button>
     </nav>
   </header>
 
-  <!-- Pages -->
-  <main>
-    <!-- Chat Page -->
-    <section id="chat" class="page active">
-      <div class="loginBox" id="loginArea">
-        <h2>Login / Sign Up</h2>
-        <input type="text" id="username" placeholder="Enter your name">
-        <input type="text" id="profilePic" placeholder="Enter profile picture URL (optional)">
-        <button onclick="login()">Login</button>
-      </div>
-
-      <div class="chatArea" id="mainArea">
-        <div class="chatBox" id="chatBox"></div>
-        <div class="chatInput">
-          <input type="text" id="chatInput" placeholder="Type a message...">
-          <button onclick="sendMessage()">Send</button>
+  <!-- Main Chat Area -->
+  <main class="container">
+    <section class="chat-card">
+      <div class="chat-header">
+        <div class="me">
+          <img id="meAvatar" class="avatar sm" alt="Your avatar"/>
+          <span id="meName" class="me-name">Guest</span>
         </div>
       </div>
-    </section>
 
-    <!-- Settings Page -->
-    <section id="settings" class="page">
-      <h2>⚙️ Settings</h2>
-      <div class="settingsBox">
-        <label>Profile Name:</label>
-        <input type="text" id="settingsName" placeholder="Enter new name">
-        
-        <label>Profile Picture URL:</label>
-        <input type="text" id="settingsPic" placeholder="Enter new profile picture URL">
-        
-        <button onclick="updateSettings()">Save Changes</button>
+      <div id="chatList" class="chat-list"></div>
+
+      <div class="chat-input">
+        <input id="chatText" type="text" placeholder="Message #general (press Enter to send)"/>
+        <button id="sendBtn" class="btn primary">Send</button>
       </div>
     </section>
-
-    <!-- Information Page -->
-    <section id="info" class="page">
-      <h2>ℹ️ Information</h2>
-      <p>Welcome to <strong>Bloxd Chat</strong> — a stylish community chat platform.  
-      More cool features are coming soon 🚀</p>
-    </section>
-
-    <!-- Hosting Page -->
-    <section id="hosting" class="page">
-      <h2>⚡ Hosting</h2>
-      <p>Hosting service is <strong>coming soon</strong>. Stay tuned!</p>
-    </section>
   </main>
+
+  <!-- SETTINGS MODAL -->
+  <div id="settingsModal" class="modal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3>Settings</h3>
+        <button class="close" data-close="settingsModal">×</button>
+      </div>
+
+      <div class="settings-body">
+        <div class="avatar-wrap">
+          <img id="settingsAvatarPreview" class="avatar lg" alt="Profile preview"/>
+          <input id="avatarFile" type="file" accept="image/*" hidden />
+          <button id="changeAvatar" class="btn">Change Avatar</button>
+          <p class="hint">PNG/JPG • Square works best</p>
+        </div>
+
+        <div class="field">
+          <label for="displayName">Profile Name</label>
+          <input id="displayName" type="text" placeholder="e.g. Hiii"/>
+        </div>
+
+        <div class="actions">
+          <button class="btn" data-close="settingsModal">Cancel</button>
+          <button id="saveSettings" class="btn primary">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INFORMATION MODAL -->
+  <div id="infoModal" class="modal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3>Information</h3>
+        <button class="close" data-close="infoModal">×</button>
+      </div>
+      <div class="modal-body">
+        <p>Welcome to <strong>AzureMC Chat</strong> — a sleek, Discord-style web chat prototype.</p>
+        <ul class="bullets">
+          <li>Custom profile name & circular avatar</li>
+          <li>Clean dark theme with subtle animations</li>
+          <li>Local (client-side) message list for demo purposes</li>
+          <li>Settings/Hosting/Info use animated pop-ups</li>
+        </ul>
+        <p>Roadmap: real-time multi-user chat, channels, mentions, and more.</p>
+      </div>
+      <div class="modal-foot">
+        <button class="btn primary" data-close="infoModal">Got it</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOSTING MODAL -->
+  <div id="hostingModal" class="modal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3>Hosting</h3>
+        <button class="close" data-close="hostingModal">×</button>
+      </div>
+      <div class="modal-body center">
+        <h2 class="coming">COMING SOON… ~</h2>
+        <p>Managed hosting for AzureMC Chat with custom domains and SSL.</p>
+      </div>
+      <div class="modal-foot">
+        <button class="btn" data-close="hostingModal">Close</button>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>

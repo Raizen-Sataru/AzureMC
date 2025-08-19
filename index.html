@@ -1,111 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AzureMC — Chat</title>
-  <link rel="stylesheet" href="style.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AzureMC</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
   <!-- Top Bar -->
   <header class="topbar">
-    <div class="brand">AzureMC</div>
+    <div class="logo">AzureMC</div>
     <nav class="menu">
-      <button class="menu-link" data-open="chat">Chat</button>
-      <button class="menu-link" data-open="infoModal">Information</button>
-      <button class="menu-link" data-open="settingsModal">Settings</button>
-      <button class="menu-link" data-open="hostingModal">Hosting</button>
+      <button onclick="openTab('chat')">Chat</button>
+      <button onclick="openTab('info')">Information</button>
+      <button onclick="openTab('settings')">Settings</button>
+      <button onclick="openTab('hosting')">Hosting</button>
     </nav>
   </header>
 
-  <!-- Main Chat Area -->
-  <main class="container">
-    <section class="chat-card">
-      <div class="chat-header">
-        <div class="me">
-          <img id="meAvatar" class="avatar sm" alt="Your avatar"/>
-          <span id="meName" class="me-name">Guest</span>
-        </div>
-      </div>
-
-      <div id="chatList" class="chat-list"></div>
-
+  <!-- Main Content -->
+  <main>
+    <!-- Chat Section -->
+    <section id="chat" class="tab active">
+      <div id="chatBox" class="chat-box"></div>
       <div class="chat-input">
-        <input id="chatText" type="text" placeholder="Message #general (press Enter to send)"/>
-        <button id="sendBtn" class="btn primary">Send</button>
+        <input type="text" id="chatInput" placeholder="Type a message...">
+        <button onclick="sendMessage()">Send</button>
       </div>
     </section>
+
+    <!-- Info Section -->
+    <section id="info" class="tab">
+      <h2>ℹ️ Information</h2>
+      <p>Welcome to <b>AzureMC Chat</b> — a stylish community chat platform. 🚀</p>
+    </section>
+
+    <!-- Settings Popup -->
+    <section id="settings" class="tab">
+      <h2>⚙️ Settings</h2>
+      <div class="settings-panel">
+        <label>Profile Picture:</label>
+        <div class="avatar-wrapper">
+          <img id="profilePreview" src="default-avatar.png" alt="Profile">
+          <input type="file" id="profilePicInput" accept="image/*">
+        </div>
+
+        <label>Profile Name:</label>
+        <input type="text" id="profileNameInput" placeholder="Enter your name">
+
+        <button onclick="saveSettings()">Save Changes</button>
+      </div>
+    </section>
+
+    <!-- Hosting Popup -->
+    <section id="hosting" class="tab">
+      <h2>⚡ Hosting</h2>
+      <p>Hosting service is <b>coming soon...</b> Stay tuned! 💻</p>
+    </section>
   </main>
-
-  <!-- SETTINGS MODAL -->
-  <div id="settingsModal" class="modal">
-    <div class="modal-card">
-      <div class="modal-head">
-        <h3>Settings</h3>
-        <button class="close" data-close="settingsModal">×</button>
-      </div>
-
-      <div class="settings-body">
-        <div class="avatar-wrap">
-          <img id="settingsAvatarPreview" class="avatar lg" alt="Profile preview"/>
-          <input id="avatarFile" type="file" accept="image/*" hidden />
-          <button id="changeAvatar" class="btn">Change Avatar</button>
-          <p class="hint">PNG/JPG • Square works best</p>
-        </div>
-
-        <div class="field">
-          <label for="displayName">Profile Name</label>
-          <input id="displayName" type="text" placeholder="e.g. Hiii"/>
-        </div>
-
-        <div class="actions">
-          <button class="btn" data-close="settingsModal">Cancel</button>
-          <button id="saveSettings" class="btn primary">Save</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- INFORMATION MODAL -->
-  <div id="infoModal" class="modal">
-    <div class="modal-card">
-      <div class="modal-head">
-        <h3>Information</h3>
-        <button class="close" data-close="infoModal">×</button>
-      </div>
-      <div class="modal-body">
-        <p>Welcome to <strong>AzureMC Chat</strong> — a sleek, Discord-style web chat prototype.</p>
-        <ul class="bullets">
-          <li>Custom profile name & circular avatar</li>
-          <li>Clean dark theme with subtle animations</li>
-          <li>Local (client-side) message list for demo purposes</li>
-          <li>Settings/Hosting/Info use animated pop-ups</li>
-        </ul>
-        <p>Roadmap: real-time multi-user chat, channels, mentions, and more.</p>
-      </div>
-      <div class="modal-foot">
-        <button class="btn primary" data-close="infoModal">Got it</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- HOSTING MODAL -->
-  <div id="hostingModal" class="modal">
-    <div class="modal-card">
-      <div class="modal-head">
-        <h3>Hosting</h3>
-        <button class="close" data-close="hostingModal">×</button>
-      </div>
-      <div class="modal-body center">
-        <h2 class="coming">COMING SOON… ~</h2>
-        <p>Managed hosting for AzureMC Chat with custom domains and SSL.</p>
-      </div>
-      <div class="modal-foot">
-        <button class="btn" data-close="hostingModal">Close</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
 </body>
 </html>
